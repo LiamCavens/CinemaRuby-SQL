@@ -1,5 +1,6 @@
 require_relative("../db/sql_runner.rb")
 require_relative("film.rb")
+require_relative("ticket.rb")
 
 class Screening
 
@@ -45,5 +46,9 @@ class Screening
 
     def self.map_screenings(screening_data)
         return screening_data.map{|screening_hash| screening.new(screening_hash)}
+    end
+
+    def self.list_screen_times()
+        sql = "SELECT screenings.screen_time FROM screenings ORDER BY screenings.screen_time"
     end
 end
