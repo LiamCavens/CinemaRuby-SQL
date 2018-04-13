@@ -19,7 +19,7 @@ class CustomerTest < MiniTest::Test
         assert_equal(20, @customer1.funds)
     end
 
-    def test_customer_gets_ticket
+    def test_customer_gets_ticket()
         @customer1.get_ticket(@ticket1)
         assert_equal(1, @customer1.get_tickets_in_tickets_tab())
     end

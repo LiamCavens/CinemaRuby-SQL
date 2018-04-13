@@ -11,6 +11,7 @@ class Film
         @id = options["id"].to_i if options["id"]
         @title = options["title"]
         @price = options["price"]
+        @customers_in_screen = []
     end
 
     def save()
@@ -52,6 +53,14 @@ class Film
 
     def self.map_films(film_data)
         return film_data.map{|film_hash| Film.new(film_hash)}
+    end
+
+    def customer_enters_film_screen(customer)
+        return @customers_in_screen.push(customer)
+    end
+
+    def get_customers_in_screen()
+        return @customers_in_screen.length()
     end
 
 end
