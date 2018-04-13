@@ -51,4 +51,8 @@ class Screening
     def self.list_screen_times()
         sql = "SELECT screenings.screen_time FROM screenings ORDER BY screenings.screen_time"
     end
+
+    def self.find_most_popular_screening_time()
+        ##Got Stuck Here
+    end
 end
