@@ -49,10 +49,12 @@ class Screening
     end
 
     def self.list_screen_times()
-        sql = "SELECT screenings.screen_time FROM screenings ORDER BY screenings.screen_time"
+        sql = "SELECT screenings.screen_time FROM screenings ORDER BY screenings.screen_time;"
     end
 
     def self.find_most_popular_screening_time()
-        ##Got Stuck Here
+        sql = "SELECT screenings.screen_time FROM screenings;"
+        screening_times = SqlRunner.run(sql)
+        return screening_times.max_by {|times| screening_times.count(times)}
     end
 end
