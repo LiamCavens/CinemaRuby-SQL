@@ -11,6 +11,7 @@ class Customer
         @id = options["id"].to_i if options["id"]
         @name = options["name"]
         @funds = options["funds"]
+        @tickets = []
     end
 
     def save()
@@ -52,5 +53,19 @@ class Customer
 
     def self.map_customers(customer_data)
         return customer_data.map{|customer_hash| Customer.new(customer_hash)}
+    end
+
+    def get_ticket(film)
+        return @tickets.push(film)
+    end
+
+    def get_tickets_in_tickets_tab()
+        return @tickets.length()
+    end
+
+    def customer_pays_for_tickets()
+        for film in @tickets
+            @funds -= film.price
+        end
     end
 end
