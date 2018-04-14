@@ -63,10 +63,4 @@ class Film
         return @customers_in_screen.length()
     end
 
-    def deny_entry_on_full()
-        if get_customers_in_screen() >= 5
-           return "No availiable tickets"
-        end
-    end
-
 end

@@ -6,25 +6,26 @@ require_relative("customer.rb")
 class Screening
 
     attr_reader :id
-    attr_accessor :film_id, :screen_time
+    attr_accessor :film_id, :screen_time, :screen_limit
 
     def initialize(options)
         @id = options["id"].to_i if options["id"]
         @film_id = options["film_id"].to_i
         @screen_time = options["screen_time"]
+        @screen_limit = options["screen_limit"]
     end
 
 
     def save()
-        sql = "INSERT INTO screenings (film_id, screen_time) VALUES ($1, $2) RETURNING id;"
-        values = [@film_id, @screen_time]
+        sql = "INSERT INTO screenings (film_id, screen_time, screen_limit) VALUES ($1, $2, $3) RETURNING id;"
+        values = [@film_id, @screen_time, @screen_limit]
         screening = SqlRunner.run(sql, values).first
         @id = screening["id"].to_i
     end
 
     def update()
-        sql = "UPDATE screenings SET (film_id, screen_time) = ($1, $2) WHERE id = $3;"
-        values = [@film_id, @screen_id, @id]
+        sql = "UPDATE screenings SET (film_id, screen_time, screen_limit) = ($1, $2, $3) WHERE id = $4;"
+        values = [@film_id, @screen_id, @screen_limit, @id]
         SqlRunner.run(sql, values)
     end
 
@@ -57,5 +58,12 @@ class Screening
         sql = "SELECT screenings.screen_time FROM screenings;"
         screening_times = SqlRunner.run(sql)
         return screening_times.max_by {|times| screening_times.count(times)}
+    end
+
+    def limit_customers_in_screen(film)
+        return "Film Sold Out" if film.get_customers_in_screen() > @screen_limit
+          if film.get_customers_in_screen() > @screen_limit + 1
+            @customers_in_screen.drop(1)
+          end
     end
 end
