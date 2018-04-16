@@ -67,8 +67,8 @@ class Screening
          end
     end
 
-    # def limit_customers_in_screen(film)
-    #     return "Film Sold Out" if film.get_customers_in_screen() > @screen_limit && film.get_customers_in_screen() > @screen_limit + 1
-    #         @customers_in_screen.drop(1)
-    # end
+    def limit_customers_in_screen(film)
+         return "Film Sold Out" if film.get_customers_in_screen() > @screen_limit && film.get_customers_in_screen() >= @screen_limit + 1
+             @customers_in_screen.drop(1)
+     end
 end
